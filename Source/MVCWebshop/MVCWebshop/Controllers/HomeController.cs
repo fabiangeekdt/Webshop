@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using MVCWebshop.Models;
 
 namespace MVCWebshop.Controllers
 {
@@ -20,6 +25,11 @@ namespace MVCWebshop.Controllers
             ViewBag.Message = "Your app description page.";
 
             return View();
+        }
+
+        public string CreateProduct(ProductModel product)
+        {
+            return null;
         }
 
         public ActionResult Contact()

@@ -1,32 +1,108 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model MVCWebshop.Models.ProductModel
+
+@{
+    ViewBag.Title = "Webshop - Products";
 }
+<h2>@ViewBag.Title</h2>
 
-@Html.Partial("_Wijmo")
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p class=""><a href="http://asp.net" class="btn btn-primary btn-large">Learn more »</a></p>
+<div class="row">
+    <div class="form-group">
+        @Html.Label("Save in Memory")
+        <div class="col-md-1">
+            @Html.CheckBox("Memory", true)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Save in Database")
+        <div class="col-md-1">
+            @Html.CheckBox("DB", true)
+        </div>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET ves you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-8">
+        @using (Html.BeginForm("CreateProduct", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get))
+        {
+            <section id="productCreation">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductId, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ProductId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ProductId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ProductName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductStatus, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ProductStatus, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ProductStatus)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductPrice, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ProductPrice)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductUnitsStock, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ProductUnitsStock, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ProductUnitsStock)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" id="Add" value="Add Product" class="btn btn-default" />
+                    </div>
+                </div>
+            </section>
+        }        
     </div>
 </div>
+
+
+
+<table class="grid">
+    <tr>
+        <th>
+            @* PRODUCTID *@
+            ID
+        </th>
+        <th>
+            @* PRODUCTNAME *@
+            PRODUDCT
+        </th>
+        <th>
+            @*PRODUCTSTATUS*@
+            STASTUS
+        </th>
+        <th>
+            @*MANUFACTURERNUMBER*@
+            MANUFACTER NO.
+        </th>
+        <th>
+            @*UNITPRICE*@
+            PRICE
+        </th>
+        <th>
+            @*UNITSINSTOCK*@
+            UNITS IN STOCK
+        </th>
+    </tr>
+</table>
+
+<div class="row">
+</div>
+
+@Html.Partial("_Wijmo")
