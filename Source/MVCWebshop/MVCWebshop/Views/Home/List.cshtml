@@ -1,0 +1,64 @@
+﻿@model IEnumerable < MVCWebshop.Models.ProductModel>
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Index")
+    </p>
+    <table class="table" id="listGrid">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductUnitsStock)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductUnitsStock)
+                    </td>
+                </tr>
+            }
+        <tbody>
+    </table>
+
+    @section scripts {
+        <script type="text/javascript">
+    	$(document).ready(function () {
+    		$("#listGrid").wijgrid({ allowSorting: true, allowPaging: true, pageSize: 20});
+    	});
+        </script>
+    }
+</body>
+</html>

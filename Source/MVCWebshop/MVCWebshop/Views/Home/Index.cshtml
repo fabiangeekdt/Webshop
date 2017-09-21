@@ -1,28 +1,15 @@
 ﻿@model MVCWebshop.Models.ProductModel
-
 @{
     ViewBag.Title = "Webshop - Products";
 }
 <h2>@ViewBag.Title</h2>
 
-@*<div class="row">
-    <div class="form-group">
-        @Html.Label("Save in Memory")
-        <div class="col-md-1">
-            @Html.CheckBox("Memory", true)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.Label("Save in Database")
-        <div class="col-md-1">
-            @Html.CheckBox("DB", true)
-        </div>
-    </div>
-</div>*@
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 
 <div class="row">
     <div class="col-md-8">
-        @using (Html.BeginForm("Index", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get))
+        @using (Html.BeginForm("CreateProduct", "Home", FormMethod.Get))
         {
             <section id="checkSave" class="jumbotron">
                 <div class="form-group">
@@ -34,86 +21,43 @@
                     @Html.CheckBoxFor(m => m.DbSabe)
                 </div>
             </section>
-            <section id="productCreation">
+            <section id="productCreation" class="jumbotron">
                 <div class="form-group">
                     @Html.LabelFor(m => m.ProductId, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.ProductId, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.ProductId)
-                    </div>
+                    @Html.EditorFor(m => m.ProductId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ProductId)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.ProductName, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.ProductName)
-                    </div>
+                    @Html.EditorFor(m => m.ProductName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ProductName)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.ProductStatus, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.ProductStatus, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.ProductStatus)
-                    </div>
+                    @Html.EditorFor(m => m.ProductStatus, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ProductStatus)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.ProductPrice, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.ProductPrice)
-                    </div>
-                </div>  
+                    @Html.EditorFor(m => m.ProductPrice, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ProductPrice)
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.ProductUnitsStock, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.ProductUnitsStock, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.ProductUnitsStock)
-                    </div>
+                    @Html.EditorFor(m => m.ProductUnitsStock, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ProductUnitsStock)
                 </div>
-
                 <div class="form-group">
-                    <div class="col-md-offset-8 col-md-8">
+                    <div class="col-md-offset-9 col-md-9">
                         <input type="submit" id="Add" value="Add Product" class="btn btn-default" />
-                        <input type="submit" id="Add" value="List Product" class="btn btn-default" />
+                            @Html.ActionLink("Go to List", "List", new { memsave = true, dbsave = true })
+
+
                     </div>
                 </div>
             </section>
-        }        
+        }
     </div>
 </div>
-
-
-
-<table class="grid">
-    <tr>
-        <th>
-            @* PRODUCTID *@
-            ID
-        </th>
-        <th>
-            @* PRODUCTNAME *@
-            PRODUDCT
-        </th>
-        <th>
-            @*PRODUCTSTATUS*@
-            STASTUS
-        </th>
-        <th>
-            @*MANUFACTURERNUMBER*@
-            MANUFACTER NO.
-        </th>
-        <th>
-            @*UNITPRICE*@
-            PRICE
-        </th>
-        <th>
-            @*UNITSINSTOCK*@
-            UNITS IN STOCK
-        </th>
-    </tr>
-</table>
-
-<div class="row">
-</div>
-
+    
 @Html.Partial("_Wijmo")

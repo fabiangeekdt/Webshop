@@ -11,13 +11,31 @@ namespace MVCWebshop.DAO
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TestProducts_Entity
     {
+        [Required(ErrorMessage = "{0} is required")]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        [Display(Name = "ID")]
         public int PRODUCTID { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        [Display(Name = "PRODUCT")]
         public string PRODUCTNAME { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        [Range(0, 1, ErrorMessage = "Please enter valid integer Number from 0 to 1")]
+        [Display(Name = "STATUS")]
         public byte PRODUCTSTATUS { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        [Display(Name = "PRICE")]
         public decimal UNITPRICE { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        [Display(Name = "UNITS IN STOCK")]
         public int UNITSINSTOCK { get; set; }
     }
 }

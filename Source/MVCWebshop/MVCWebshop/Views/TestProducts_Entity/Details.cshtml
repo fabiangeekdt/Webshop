@@ -1,0 +1,58 @@
+﻿@model MVCWebshop.DAO.TestProducts_Entity
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>TestProducts_Entity</h4>
+    	<hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PRODUCTNAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PRODUCTNAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PRODUCTSTATUS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PRODUCTSTATUS)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UNITPRICE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UNITPRICE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UNITSINSTOCK)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UNITSINSTOCK)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PRODUCTID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

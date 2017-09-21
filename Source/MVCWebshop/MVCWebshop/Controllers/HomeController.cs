@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security;
 using MVCWebshop.Models;
 using MVCWebshop.DAO;
 using MVCWebshop.Entity;
@@ -17,7 +11,6 @@ namespace MVCWebshop.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
             return View();
         }
 
@@ -28,6 +21,16 @@ namespace MVCWebshop.Controllers
             return View();
         }
 
+        // GET: list
+        public ActionResult List(bool memsave, bool dbsave)
+        {
+            if (memsave)
+                return View(MemoryListProduct());
+            if (dbsave)
+                return View(DbProductList());
+            return null;
+        }
+
         public string CreateProduct(ProductModel product)
         {
             try
@@ -35,7 +38,7 @@ namespace MVCWebshop.Controllers
                 var pro = new Product{ ProductId = product.ProductId,ProductName = product.ProductName, ProductPrice = product.ProductPrice,
                                         ProductStatus = product.ProductStatus, ProductUnitsStock = product.ProductUnitsStock};
                 if (product.MemorySave)
-                    MemorySaveProduct(pro);
+                    MemorySaveProduct(product);
                 if (product.DbSabe)
                     DbSaveProduct(pro);
                 if(!product.DbSabe && !product.MemorySave)
@@ -46,6 +49,47 @@ namespace MVCWebshop.Controllers
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        private List<ProductModel> DbProductList()
+        {
+            try
+            {
+                var dao = new DataAccess();
+                var lstProductEntity = dao.ProductList();
+                var lstProds = new List<ProductModel>();
+                foreach(var prodEntity in lstProductEntity)
+                {
+                    var prods = new ProductModel();
+                    prods.ProductId = prodEntity.PRODUCTID;
+                    prods.ProductName = prodEntity.PRODUCTNAME;
+                    prods.ProductPrice = Convert.ToDouble(prodEntity.UNITPRICE);
+                    prods.ProductStatus = prodEntity.PRODUCTSTATUS;
+                    prods.ProductUnitsStock = prodEntity.UNITSINSTOCK;
+                    lstProds.Add(prods);
+                }
+                return lstProds; 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private List<ProductModel> MemoryListProduct()
+        {
+            try
+            {
+                var lst = new List<ProductModel>();
+                if (HttpContext.Application["Productlist"] == null)
+                    HttpContext.Application["Productlist"] = lst;
+
+                return (List<ProductModel>)HttpContext.Application["Productlist"];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -62,19 +106,15 @@ namespace MVCWebshop.Controllers
             }
         }
 
-        private void MemorySaveProduct(Product pro)
+        private void MemorySaveProduct(ProductModel pro)
         {
             try
             {
-                List<Product> listpro;
+                List<ProductModel> listpro;
                 if (HttpContext.Application["Productlist"] == null)
-                {
-                    listpro = new List<Product>();
-                }
+                    listpro = new List<ProductModel>();
                 else
-                {
-                    listpro = (List<Product>)HttpContext.Application["Productlist"];
-                }
+                    listpro = (List<ProductModel>)HttpContext.Application["Productlist"];
                 listpro.Add(pro);
                 HttpContext.Application["Productlist"] = listpro;
             }

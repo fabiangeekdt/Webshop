@@ -33,5 +33,19 @@ namespace MVCWebshop.DAO
                 throw ex;
             }
         }
+
+        public List<TestProducts_Entity> ProductList()
+        {
+            try
+            {
+                var dbCtx = new WEBSHOPEntities();
+                return dbCtx.TESTPRODUCTS.ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
