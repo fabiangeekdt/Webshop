@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WEBSHOPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="CATEGORYID" />
+          </Key>
+          <Property Name="CATEGORYID" Type="int" Nullable="false" />
+          <Property Name="CATEGORYNAME" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="50" />
+          <Property Name="STATUS" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDERDETAILS">
+          <Key>
+            <PropertyRef Name="ORDERDETAILID" />
+          </Key>
+          <Property Name="ORDERDETAILID" Type="int" Nullable="false" />
+          <Property Name="ORDERID" Type="int" Nullable="false" />
+          <Property Name="PRODUCTID" Type="int" Nullable="false" />
+          <Property Name="ORDERNUMBER" Type="int" Nullable="false" />
+          <Property Name="PRICE" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="QUANTITY" Type="int" Nullable="false" />
+          <Property Name="DISCOUNT" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TOTAL" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BILLDATE" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTS">
+          <Key>
+            <PropertyRef Name="PRODUCTID" />
+          </Key>
+          <Property Name="PRODUCTID" Type="int" Nullable="false" />
+          <Property Name="PRODUCTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRODUCTDESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="PRODUCTSTATUS" Type="tinyint" Nullable="false" />
+          <Property Name="MANUFACTURERNUMBER" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SIZE" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="COLOR" Type="nvarchar" MaxLength="50" />
+          <Property Name="HEIGHT" Type="nvarchar" MaxLength="25" />
+          <Property Name="WIDHT" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="WEIGHT" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="SHIPPINHWEIGHT" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="BRAND" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PACKAGEDIMENSIONS" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UNITPRICE" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DISCOUNTPRICE" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UNITSINSTOCK" Type="int" Nullable="false" />
+          <Property Name="UNITSINORDER" Type="int" Nullable="false" />
+          <Property Name="CATEGORYID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTSTATUS">
+          <Key>
+            <PropertyRef Name="PRODUCTSTATUSID" />
+          </Key>
+          <Property Name="PRODUCTSTATUSID" Type="tinyint" Nullable="false" />
+          <Property Name="PRODUCTSTATUSDESCRIPTION" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TESTPRODUCTS">
+          <Key>
+            <PropertyRef Name="PRODUCTID" />
+          </Key>
+          <Property Name="PRODUCTID" Type="int" Nullable="false" />
+          <Property Name="PRODUCTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRODUCTSTATUS" Type="tinyint" Nullable="false" />
+          <Property Name="UNITPRICE" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UNITSINSTOCK" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PRODUCTS_CATEGORY">
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="1" />
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="CATEGORYID" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="CATEGORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTS_PRODUCTSTATUS">
+          <End Role="PRODUCTSTATUS" Type="Self.PRODUCTSTATUS" Multiplicity="1" />
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTSTATUS">
+              <PropertyRef Name="PRODUCTSTATUSID" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="PRODUCTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WEBSHOPModelStoreContainer">
+          <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDERDETAILS" EntityType="Self.ORDERDETAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTS" EntityType="Self.PRODUCTS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTSTATUS" EntityType="Self.PRODUCTSTATUS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TESTPRODUCTS" EntityType="Self.TESTPRODUCTS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PRODUCTS_CATEGORY" Association="Self.FK_PRODUCTS_CATEGORY">
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTS_PRODUCTSTATUS" Association="Self.FK_PRODUCTS_PRODUCTSTATUS">
+            <End Role="PRODUCTSTATUS" EntitySet="PRODUCTSTATUS" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WEBSHOPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TestProducts_Entity">
+          <Key>
+            <PropertyRef Name="PRODUCTID" />
+          </Key>
+          <Property Name="PRODUCTID" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PRODUCTSTATUS" Type="Byte" Nullable="false" />
+          <Property Name="UNITPRICE" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UNITSINSTOCK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="WEBSHOPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TESTPRODUCTS" EntityType="WEBSHOPModel.TestProducts_Entity" />
+          <EntitySet Name="CATEGORY" EntityType="WEBSHOPModel.CATEGORY" />
+          <EntitySet Name="ORDERDETAILS" EntityType="WEBSHOPModel.ORDERDETAILS" />
+          <EntitySet Name="PRODUCTS" EntityType="WEBSHOPModel.PRODUCTS" />
+          <EntitySet Name="PRODUCTSTATUS" EntityType="WEBSHOPModel.PRODUCTSTATUS" />
+          <AssociationSet Name="FK_PRODUCTS_CATEGORY" Association="WEBSHOPModel.FK_PRODUCTS_CATEGORY">
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTS_PRODUCTSTATUS" Association="WEBSHOPModel.FK_PRODUCTS_PRODUCTSTATUS">
+            <End Role="PRODUCTSTATUS" EntitySet="PRODUCTSTATUS" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="CATEGORYID" />
+          </Key>
+          <Property Name="CATEGORYID" Type="Int32" Nullable="false" />
+          <Property Name="CATEGORYNAME" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="STATUS" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PRODUCTS" Relationship="WEBSHOPModel.FK_PRODUCTS_CATEGORY" FromRole="CATEGORY" ToRole="PRODUCTS" />
+        </EntityType>
+        <EntityType Name="ORDERDETAILS">
+          <Key>
+            <PropertyRef Name="ORDERDETAILID" />
+          </Key>
+          <Property Name="ORDERDETAILID" Type="Int32" Nullable="false" />
+          <Property Name="ORDERID" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCTID" Type="Int32" Nullable="false" />
+          <Property Name="ORDERNUMBER" Type="Int32" Nullable="false" />
+          <Property Name="PRICE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="QUANTITY" Type="Int32" Nullable="false" />
+          <Property Name="DISCOUNT" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TOTAL" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="BILLDATE" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="PRODUCTS">
+          <Key>
+            <PropertyRef Name="PRODUCTID" />
+          </Key>
+          <Property Name="PRODUCTID" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCTNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCTDESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCTSTATUS" Type="Byte" Nullable="false" />
+          <Property Name="MANUFACTURERNUMBER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SIZE" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="COLOR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HEIGHT" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="WIDHT" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="WEIGHT" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="SHIPPINHWEIGHT" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="BRAND" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PACKAGEDIMENSIONS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UNITPRICE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DISCOUNTPRICE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="UNITSINSTOCK" Type="Int32" Nullable="false" />
+          <Property Name="UNITSINORDER" Type="Int32" Nullable="false" />
+          <Property Name="CATEGORYID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CATEGORY" Relationship="WEBSHOPModel.FK_PRODUCTS_CATEGORY" FromRole="PRODUCTS" ToRole="CATEGORY" />
+          <NavigationProperty Name="PRODUCTSTATUS1" Relationship="WEBSHOPModel.FK_PRODUCTS_PRODUCTSTATUS" FromRole="PRODUCTS" ToRole="PRODUCTSTATUS" />
+        </EntityType>
+        <EntityType Name="PRODUCTSTATUS">
+          <Key>
+            <PropertyRef Name="PRODUCTSTATUSID" />
+          </Key>
+          <Property Name="PRODUCTSTATUSID" Type="Byte" Nullable="false" />
+          <Property Name="PRODUCTSTATUSDESCRIPTION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PRODUCTS" Relationship="WEBSHOPModel.FK_PRODUCTS_PRODUCTSTATUS" FromRole="PRODUCTSTATUS" ToRole="PRODUCTS" />
+        </EntityType>
+        <Association Name="FK_PRODUCTS_CATEGORY">
+          <End Type="WEBSHOPModel.CATEGORY" Role="CATEGORY" Multiplicity="1" />
+          <End Type="WEBSHOPModel.PRODUCTS" Role="PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="CATEGORYID" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="CATEGORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTS_PRODUCTSTATUS">
+          <End Type="WEBSHOPModel.PRODUCTSTATUS" Role="PRODUCTSTATUS" Multiplicity="1" />
+          <End Type="WEBSHOPModel.PRODUCTS" Role="PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTSTATUS">
+              <PropertyRef Name="PRODUCTSTATUSID" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="PRODUCTSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WEBSHOPModelStoreContainer" CdmEntityContainer="WEBSHOPEntities">
+          <EntitySetMapping Name="TESTPRODUCTS">
+            <EntityTypeMapping TypeName="WEBSHOPModel.TestProducts_Entity">
+              <MappingFragment StoreEntitySet="TESTPRODUCTS">
+                <ScalarProperty Name="PRODUCTID" ColumnName="PRODUCTID" />
+                <ScalarProperty Name="PRODUCTNAME" ColumnName="PRODUCTNAME" />
+                <ScalarProperty Name="PRODUCTSTATUS" ColumnName="PRODUCTSTATUS" />
+                <ScalarProperty Name="UNITPRICE" ColumnName="UNITPRICE" />
+                <ScalarProperty Name="UNITSINSTOCK" ColumnName="UNITSINSTOCK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORY">
+            <EntityTypeMapping TypeName="WEBSHOPModel.CATEGORY">
+              <MappingFragment StoreEntitySet="CATEGORY">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CATEGORYNAME" ColumnName="CATEGORYNAME" />
+                <ScalarProperty Name="CATEGORYID" ColumnName="CATEGORYID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERDETAILS">
+            <EntityTypeMapping TypeName="WEBSHOPModel.ORDERDETAILS">
+              <MappingFragment StoreEntitySet="ORDERDETAILS">
+                <ScalarProperty Name="BILLDATE" ColumnName="BILLDATE" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="DISCOUNT" ColumnName="DISCOUNT" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="ORDERNUMBER" ColumnName="ORDERNUMBER" />
+                <ScalarProperty Name="PRODUCTID" ColumnName="PRODUCTID" />
+                <ScalarProperty Name="ORDERID" ColumnName="ORDERID" />
+                <ScalarProperty Name="ORDERDETAILID" ColumnName="ORDERDETAILID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTS">
+            <EntityTypeMapping TypeName="WEBSHOPModel.PRODUCTS">
+              <MappingFragment StoreEntitySet="PRODUCTS">
+                <ScalarProperty Name="CATEGORYID" ColumnName="CATEGORYID" />
+                <ScalarProperty Name="UNITSINORDER" ColumnName="UNITSINORDER" />
+                <ScalarProperty Name="UNITSINSTOCK" ColumnName="UNITSINSTOCK" />
+                <ScalarProperty Name="DISCOUNTPRICE" ColumnName="DISCOUNTPRICE" />
+                <ScalarProperty Name="UNITPRICE" ColumnName="UNITPRICE" />
+                <ScalarProperty Name="PACKAGEDIMENSIONS" ColumnName="PACKAGEDIMENSIONS" />
+                <ScalarProperty Name="BRAND" ColumnName="BRAND" />
+                <ScalarProperty Name="SHIPPINHWEIGHT" ColumnName="SHIPPINHWEIGHT" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="WIDHT" ColumnName="WIDHT" />
+                <ScalarProperty Name="HEIGHT" ColumnName="HEIGHT" />
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="SIZE" ColumnName="SIZE" />
+                <ScalarProperty Name="MANUFACTURERNUMBER" ColumnName="MANUFACTURERNUMBER" />
+                <ScalarProperty Name="PRODUCTSTATUS" ColumnName="PRODUCTSTATUS" />
+                <ScalarProperty Name="PRODUCTDESCRIPTION" ColumnName="PRODUCTDESCRIPTION" />
+                <ScalarProperty Name="PRODUCTNAME" ColumnName="PRODUCTNAME" />
+                <ScalarProperty Name="PRODUCTID" ColumnName="PRODUCTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTSTATUS">
+            <EntityTypeMapping TypeName="WEBSHOPModel.PRODUCTSTATUS">
+              <MappingFragment StoreEntitySet="PRODUCTSTATUS">
+                <ScalarProperty Name="PRODUCTSTATUSDESCRIPTION" ColumnName="PRODUCTSTATUSDESCRIPTION" />
+                <ScalarProperty Name="PRODUCTSTATUSID" ColumnName="PRODUCTSTATUSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

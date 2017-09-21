@@ -17,20 +17,26 @@ namespace MVCWebshop.Models
 
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.Text)]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        [Range(0, byte.MaxValue, ErrorMessage = "Please enter valid integer Number")]
         [Display(Name = "STATUS")]
-        public int ProductStatus { get; set; }
+        public byte ProductStatus { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.Text)]
         [Range(0, double.MaxValue, ErrorMessage = "Please enter valid decimal Number")]
         [Display(Name = "PRICE")]
-        public decimal ProductPrice { get; set; }
+        public double ProductPrice { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.Text)]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
         [Display(Name = "UNITS IN STOCK")]
         public int ProductUnitsStock { get; set; }
+
+        [Display(Name = "Save in Memory")]
+        public bool MemorySave { get; set; }
+
+        [Display(Name = "Save in Database")]
+        public bool DbSabe { get; set; }
     }
 }

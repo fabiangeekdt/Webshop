@@ -73,6 +73,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -201,6 +203,38 @@
     <None Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAO\CATEGORY.cs">
+      <DependentUpon>WebshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\DataAccess.cs" />
+    <Compile Include="DAO\ORDERDETAILS.cs">
+      <DependentUpon>WebshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\PRODUCTS.cs">
+      <DependentUpon>WebshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\PRODUCTSTATUS.cs">
+      <DependentUpon>WebshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\TestProducts_Entity.cs">
+      <DependentUpon>WebshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\WebshopModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebshopModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\WebshopModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\WebshopModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebshopModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Product.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Global.asax.cs">
@@ -273,11 +307,28 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="DAO\WebshopModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WebshopModel.edmx</DependentUpon>
+      <LastGenOutput>WebshopModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAO\WebshopModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WebshopModel.edmx</DependentUpon>
+      <LastGenOutput>WebshopModel.cs</LastGenOutput>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <EntityDeploy Include="DAO\WebshopModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WebshopModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAO\WebshopModel.edmx.diagram">
+      <DependentUpon>WebshopModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -364,7 +415,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DAO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
