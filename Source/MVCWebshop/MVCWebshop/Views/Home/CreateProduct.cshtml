@@ -1,0 +1,66 @@
+﻿@model MVCWebshop.Models.ProductModel
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h4>Product:</h4>
+        <h5>@ViewBag.Message</h5>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductPrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductUnitsStock)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductUnitsStock)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Create New", "Index")
+    </p>
+
+</body>
+</html>

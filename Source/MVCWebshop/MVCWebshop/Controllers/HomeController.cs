@@ -21,30 +21,59 @@ namespace MVCWebshop.Controllers
             return View();
         }
 
-        // GET: list
-        public ActionResult List(bool memsave, bool dbsave)
+        public ActionResult Contact()
         {
-            if (memsave)
-                return View(MemoryListProduct());
-            if (dbsave)
-                return View(DbProductList());
-            return null;
+            ViewBag.Message = "Your contact page.";
+
+            return View();
         }
 
-        public string CreateProduct(ProductModel product)
+
+        //public ActionResult List(FormCollection form)
+        public ActionResult List(string isDB)
+        {
+            var Database = Convert.ToBoolean(isDB);
+            var lst = new List<ProductModel>();
+            if (Database)
+                lst = DbProductList();
+            else
+                lst = MemoryListProduct();
+            return View(lst);
+        }
+
+        public ActionResult CreateProduct(ProductModel product)
         {
             try
             {
-                var pro = new Product{ ProductId = product.ProductId,ProductName = product.ProductName, ProductPrice = product.ProductPrice,
-                                        ProductStatus = product.ProductStatus, ProductUnitsStock = product.ProductUnitsStock};
+
                 if (product.MemorySave)
                     MemorySaveProduct(product);
                 if (product.DbSabe)
-                    DbSaveProduct(pro);
-                if(!product.DbSabe && !product.MemorySave)
+                {
+                    var pro = new Product
+                    {
+                        ProductId = product.ProductId,
+                        ProductName = product.ProductName,
+                        ProductPrice = product.ProductPrice,
+                        ProductStatus = product.ProductStatus,
+                        ProductUnitsStock = product.ProductUnitsStock
+                    };
+                    var p = validateExistProduct(pro);
+                    if (p == null)
+                        DbSaveProduct(pro);
+                    else
+                    {
+                        ViewBag.Message = "there is another product with the same ID.";
+                        return View(p);
+                    }
+                }
+                if (!product.DbSabe && !product.MemorySave) {
                     ViewBag.Message = "You must select a check for saving the product";
+                    return View(new ProductModel { });
+                }
+                
 
-                return null;
+                return View(product);
             }
             catch (Exception)
             {
@@ -59,7 +88,7 @@ namespace MVCWebshop.Controllers
                 var dao = new DataAccess();
                 var lstProductEntity = dao.ProductList();
                 var lstProds = new List<ProductModel>();
-                foreach(var prodEntity in lstProductEntity)
+                foreach (var prodEntity in lstProductEntity)
                 {
                     var prods = new ProductModel();
                     prods.ProductId = prodEntity.PRODUCTID;
@@ -69,7 +98,7 @@ namespace MVCWebshop.Controllers
                     prods.ProductUnitsStock = prodEntity.UNITSINSTOCK;
                     lstProds.Add(prods);
                 }
-                return lstProds; 
+                return lstProds;
             }
             catch (Exception ex)
             {
@@ -90,6 +119,25 @@ namespace MVCWebshop.Controllers
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private ProductModel validateExistProduct(Product pro)
+        {
+            try
+            {
+                ProductModel product;
+                var dao = new DataAccess();
+                var entityProduct = dao.ExistProduct(pro);
+                if (entityProduct != null)
+                    product = new ProductModel { ProductId = entityProduct.PRODUCTID, ProductName = entityProduct.PRODUCTNAME, ProductPrice = Convert.ToDouble(entityProduct.UNITPRICE), ProductStatus = entityProduct.PRODUCTSTATUS, ProductUnitsStock = entityProduct.UNITSINSTOCK };
+                else
+                    product = null;
+                return product;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -122,13 +170,6 @@ namespace MVCWebshop.Controllers
             {
                 throw ex;
             }
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }

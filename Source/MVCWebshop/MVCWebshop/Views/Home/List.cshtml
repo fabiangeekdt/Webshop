@@ -1,4 +1,4 @@
-﻿@model IEnumerable < MVCWebshop.Models.ProductModel>
+﻿@model IEnumerable<MVCWebshop.Models.ProductModel>
 
 @{
 
@@ -12,53 +12,56 @@
     <title>Index</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Index")
-    </p>
-    <table class="table" id="listGrid">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductPrice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductUnitsStock)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <form action="/Home/List" method="post">
+        <br />
+        <table class="table" id="listGrid">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductStatus)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductUnitsStock)
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductStatus)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductPrice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductUnitsStock)
+                    </th>
                 </tr>
-            }
-        <tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductUnitsStock)
+                        </td>
+                    </tr>
+                }
+            <tbody>
+        </table>
+        <p>
+            @Html.ActionLink("Create New", "Index")
+        </p>
 
-    @section scripts {
-        <script type="text/javascript">
-    	$(document).ready(function () {
-    		$("#listGrid").wijgrid({ allowSorting: true, allowPaging: true, pageSize: 20});
-    	});
-        </script>
-    }
+        @section scripts {
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#listGrid").wijgrid({ allowSorting: true, allowPaging: true, pageSize: 20 });
+                });
+            </script>
+        }
+    </form>
 </body>
 </html>

@@ -336,12 +336,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\TestProducts_Entity\Create.cshtml" />
-    <Content Include="Views\TestProducts_Entity\Delete.cshtml" />
-    <Content Include="Views\TestProducts_Entity\Details.cshtml" />
-    <Content Include="Views\TestProducts_Entity\Edit.cshtml" />
-    <Content Include="Views\TestProducts_Entity\Index.cshtml" />
     <Content Include="Views\Home\List.cshtml" />
+    <Content Include="Views\Home\CreateProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Project_Readme.html" />

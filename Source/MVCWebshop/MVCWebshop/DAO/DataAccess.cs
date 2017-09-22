@@ -47,5 +47,19 @@ namespace MVCWebshop.DAO
                 throw;
             }
         }
+
+        public TestProducts_Entity ExistProduct(Product pro)
+        {
+            try
+            {
+                var dbCtx = new WEBSHOPEntities();
+                return dbCtx.TESTPRODUCTS.Where(m => m.PRODUCTID == pro.ProductId).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
